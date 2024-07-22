@@ -7,7 +7,7 @@ function App() {
   const [userPrice, setUserPrice] = useState(10_000)
 
   const [wbCashDiscount, setWbCashDiscount] = useState(4.0)
-  const [wbCashPrice, setWbCashPrice] = useState(10_400)
+  const [wbCashPrice, setWbCashPrice] = useState(9_600)
 
   const [discount, setDiscount] = useState(63.0)
   const [wbDiscount, setWbDiscount] = useState(19.0)
@@ -20,21 +20,21 @@ function App() {
   const onChangeUserPrice = (value) => {
     setUserPrice(value)
     setBuyPrice((value / (1 - wbDiscount / 100) / (1 - discount / 100)).ceil())
-    setWbCashPrice((value * (wbCashDiscount / 100 + 1)).ceil())
+    setWbCashPrice((value * (1 - wbCashDiscount / 100)).ceil())
   }
   const onChangeBuyPrice = (value) => {
     setBuyPrice(value)
     setUserPrice((value * (1 - wbDiscount / 100) * (1 - discount / 100)).ceil())
-    setWbCashPrice(((value * (1 - wbDiscount / 100) * (1 - discount / 100)) * (wbCashDiscount / 100 + 1)).ceil())
+    setWbCashPrice(((value * (1 - wbDiscount / 100) * (1 - discount / 100)) * (1 - wbCashDiscount / 100)).ceil())
   }
   const onChangeWbCashPrice = (value) => {
     setWbCashPrice(value)
-    setUserPrice((value / (wbCashDiscount / 100 + 1)).ceil())
-    setBuyPrice(((value / (wbCashDiscount / 100 + 1)) / (1 - wbDiscount / 100) / (1 - discount / 100)).ceil())
+    setUserPrice((value / (1 - wbCashDiscount / 100)).ceil())
+    setBuyPrice(((value / (1 - wbCashDiscount / 100)) / (1 - wbDiscount / 100) / (1 - discount / 100)).ceil())
   }
   const onChangeWbCashDiscount = (value) => {
     setWbCashDiscount(value)
-    setWbCashPrice((userPrice * (value / 100 + 1)).ceil())
+    setWbCashPrice((userPrice * (1 - value / 100)).ceil())
   }
   const onChangeDiscount = (value) => {
     setDiscount(value)
